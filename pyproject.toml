@@ -2,7 +2,7 @@
 name = "simple_webapp_k8s"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Stephen Nicholson <stephen.nicholson1@hotmail.co.uk>"]
 license = "MIT"
 readme = "README.md"
 
@@ -10,6 +10,13 @@ readme = "README.md"
 python = "^3.12"
 fastapi = "^0.115.5"
 requests = "^2.32.3"
+gunicorn = "^21.2.0"
+uvicorn = "^0.26.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.9"
+pydantic-settings = "^2.1.0"
+bcrypt = "^4.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.3.1"
