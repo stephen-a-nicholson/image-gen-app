@@ -1,149 +1,109 @@
-# simple-webapp-k8s
+# Full Stack Authentication Demo
 
-A secure FastAPI application using Poetry for dependency management and Kubernetes for deployment, featuring JWT authentication.
+A full-stack application demonstrating secure authentication using FastAPI, Vite React, and PostgreSQL, with Docker Compose for local development and Kubernetes for deployment.
+
+## Project Structure
+```
+.
+├── backend/          # FastAPI application with JWT authentication
+├── frontend/         # Vite React application
+├── docker-compose.yml
+└── k8s/              # Kubernetes configuration files
+```
 
 ## Features
-- FastAPI web framework with JWT authentication
-- Poetry dependency management
-- Gunicorn with Uvicorn workers
-- Security headers and CORS configuration
+- FastAPI backend with JWT authentication
+- Vite React frontend
+- PostgreSQL database for user management
+- Docker Compose setup for development
 - Kubernetes deployment configuration
-- Health check endpoint
-- Protected endpoints with JWT tokens
+- Secure password handling
+- Protected API endpoints
 
-## Local Development
+## Prerequisites
+- Docker and Docker Compose
+- Node.js 18+
+- Python 3.12+
+- Poetry (for backend development)
+- kubectl (for Kubernetes deployment)
 
-### Prerequisites
-- Docker
-- Poetry
-- Kubernetes cluster (e.g., minikube)
-- kubectl
+## Quick Start
 
-### Building and Running Locally
-
-1. Install dependencies:
+1. Clone the repository:
 ```bash
-poetry install
+git clone <repository-url>
+cd <project-directory>
 ```
 
-2. Build the Docker image:
-```bash
-# For production build
-docker build -t hello-world-api:latest .
-
-# For development build (includes dev dependencies)
-docker build -t hello-world-api:dev --build-arg INSTALL_DEV=true .
+2. Create `.env` file in the root directory:
+```
+POSTGRES_PASSWORD=your_secure_password
+POSTGRES_DB=your_db_name
+SECRET_KEY=your_jwt_secret_key
 ```
 
-3. Run the container:
+3. Start the application:
 ```bash
-docker run -p 8000:8000 hello-world-api:latest
+docker compose up -d
 ```
 
-### Testing Authentication
+4. Access the applications:
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8000
+- API Documentation: http://localhost:8000/docs
 
-1. Access the Swagger UI at `http://localhost:8000/docs`
+## Development
 
-2. Get JWT Token:
-   - Click on `/token` endpoint
-   - Click "Try it out"
-   - Use test credentials:
-     ```
-     username: testuser
-     password: password123
-     ```
-   - Execute and copy the access token
+### Backend Development
+See [backend/README.md](./backend/README.md) for detailed backend documentation.
 
-3. Authorise Protected Endpoints:
-   - Click the "Authorise" button (lock icon) at the top
-   - Enter: `Bearer <your-access-token>`
-   - Click "Authorise"
-   - Now you can access protected endpoints
+### Frontend Development
+The frontend is a Vite React application. To develop locally:
 
-### Kubernetes Deployment with Minikube
-
-1. Start Minikube and set up environment:
+1. Navigate to frontend directory:
 ```bash
-# Start Minikube
-minikube start
-
-# Point Docker CLI to Minikube's Docker daemon
-eval $(minikube docker-env)
-
-# Build image in Minikube's context
-docker build -t hello-world-api:latest .
+cd frontend
 ```
 
-2. Apply Kubernetes manifests:
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start development server:
+```bash
+npm run dev
+```
+
+## Docker Compose Services
+
+- `frontend`: Vite React application
+- `backend`: FastAPI application
+- `db`: PostgreSQL database
+
+## Production Deployment
+
+### Using Kubernetes
+1. Build and push Docker images to your registry
+2. Update Kubernetes manifests in `k8s/` directory
+3. Apply configurations:
 ```bash
 kubectl apply -f k8s/
 ```
 
-3. Monitor deployment:
-```bash
-# Check pod status
-kubectl get pods
+See individual service READMEs for detailed deployment instructions.
 
-# Check logs
-kubectl logs -l app=hello-world-api
+## Security Considerations
+- Store production secrets securely
+- Update CORS settings for production
+- Use proper SSL/TLS certificates
+- Implement rate limiting
+- Regular security audits
+- Proper password policies
 
-# Check service
-kubectl get services
-```
-
-4. Access the application:
-```bash
-# Get service URL
-minikube service hello-world-api --url
-
-# Or use port forwarding
-kubectl port-forward service/hello-world-api 8000:8000
-```
-
-5. Troubleshooting:
-```bash
-# Check detailed pod status
-kubectl describe pods
-
-# Check endpoints
-kubectl get endpoints hello-world-api
-
-# Delete and redeploy
-kubectl delete -f k8s/
-kubectl apply -f k8s/
-```
-
-## API Endpoints
-
-- `POST /token`: Get JWT token (authentication)
-- `GET /`: Returns hello world message (protected)
-- `GET /health`: Health check endpoint (public)
-
-## Security Features
-- JWT token authentication
-- Non-root user execution
-- Security headers
-- Resource limits
-- ReadOnly root filesystem
-- No privilege escalation
-- Health checks
-- CORS configuration
-- Password hashing with bcrypt
-
-## Important Notes
-
-1. For local testing:
-   - Always build images in Minikube's Docker context
-   - Use `imagePullPolicy: Never` in deployment
-   - Ensure Minikube has enough resources
-
-2. Authentication:
-   - Store production secrets securely (not in code)
-   - Update CORS settings for production
-   - Use strong passwords and proper user management
-
-3. Production Deployment:
-   - Update resource limits based on actual usage
-   - Configure proper ingress/load balancing
-   - Set up monitoring and logging
-   - Use proper secrets management
+## Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
