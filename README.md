@@ -1,6 +1,6 @@
 # AI Image Studio
 
-A full-stack AI image generation application using Stable Diffusion XL, FastAPI, and React. Create AI-generated images through a modern web interface with secure authentication.
+A full-stack AI image generation application using Stable Diffusion XL, FastAPI, and React. Create AI-generated images through a modern web interface with secure authentication. 
 
 ## Project Structure
 ```
