@@ -1,24 +1,25 @@
-# Full Stack Authentication Demo
+# AI Image Studio
 
-A full-stack application demonstrating secure authentication using FastAPI, Vite React, and PostgreSQL, with Docker Compose for local development and Kubernetes for deployment.
+A full-stack AI image generation application using Stable Diffusion XL, FastAPI, and React. Create AI-generated images through a modern web interface with secure authentication.
 
 ## Project Structure
 ```
 .
-├── backend/          # FastAPI application with JWT authentication
-├── frontend/         # Vite React application
+├── backend/          # FastAPI application with JWT auth & AI integration
+├── frontend/         # Vite React application with modern UI
 ├── docker-compose.yml
 └── k8s/              # Kubernetes configuration files
 ```
 
 ## Features
-- FastAPI backend with JWT authentication
-- Vite React frontend
+- AI Image Generation using Stable Diffusion XL
+- Secure JWT authentication
+- Modern React frontend with Tailwind CSS
+- FastAPI backend for high performance
+- Docker Compose setup for easy development
 - PostgreSQL database for user management
-- Docker Compose setup for development
-- Kubernetes deployment configuration
-- Secure password handling
-- Protected API endpoints
+- Fast development with Vite
+- Kubernetes deployment ready
 
 ## Prerequisites
 - Docker and Docker Compose
@@ -26,13 +27,14 @@ A full-stack application demonstrating secure authentication using FastAPI, Vite
 - Python 3.12+
 - Poetry (for backend development)
 - kubectl (for Kubernetes deployment)
+- Hugging Face API token
 
 ## Quick Start
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/stephen-a-nicholson/simple-webapp-k8s.git
+cd ai-image-studio
 ```
 
 2. Create `.env` file in the root directory:
@@ -40,6 +42,7 @@ cd <project-directory>
 POSTGRES_PASSWORD=your_secure_password
 POSTGRES_DB=your_db_name
 SECRET_KEY=your_jwt_secret_key
+HUGGINGFACE_API_TOKEN=your_huggingface_token
 ```
 
 3. Start the application:
@@ -47,39 +50,50 @@ SECRET_KEY=your_jwt_secret_key
 docker compose up -d
 ```
 
-4. Access the applications:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:8000
+4. Access the application:
+- Web Interface: http://localhost:5173
 - API Documentation: http://localhost:8000/docs
 
 ## Development
 
 ### Backend Development
+The backend uses FastAPI with the following features:
+- JWT authentication
+- Hugging Face Stable Diffusion XL integration
+- PostgreSQL database
+- Poetry for dependency management
+
 See [backend/README.md](./backend/README.md) for detailed backend documentation.
 
 ### Frontend Development
-The frontend is a Vite React application. To develop locally:
+The frontend is built with:
+- Vite & React
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Modern, responsive design
 
-1. Navigate to frontend directory:
+To develop locally:
 ```bash
 cd frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Start development server:
-```bash
 npm run dev
 ```
 
-## Docker Compose Services
-
+## Docker Services
 - `frontend`: Vite React application
 - `backend`: FastAPI application
 - `db`: PostgreSQL database
+
+## API Endpoints
+- `POST /token`: Authentication endpoint
+- `POST /image/generate`: Generate images (protected)
+- `GET /health`: Health check endpoint
+
+## Environment Variables
+- `POSTGRES_PASSWORD`: Database password
+- `POSTGRES_DB`: Database name
+- `SECRET_KEY`: JWT secret key
+- `HUGGINGFACE_API_TOKEN`: Hugging Face API token for image generation
 
 ## Production Deployment
 
@@ -91,15 +105,13 @@ npm run dev
 kubectl apply -f k8s/
 ```
 
-See individual service READMEs for detailed deployment instructions.
-
 ## Security Considerations
-- Store production secrets securely
-- Update CORS settings for production
-- Use proper SSL/TLS certificates
-- Implement rate limiting
+- Secure storage of Hugging Face API tokens
+- Rate limiting for image generation
+- Proper CORS configuration
+- SSL/TLS in production
 - Regular security audits
-- Proper password policies
+- Secure password policies
 
 ## Contributing
 1. Fork the repository
