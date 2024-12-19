@@ -3,7 +3,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from simple_webapp_k8s.routers import auth, hello
+from simple_webapp_k8s.routers import auth, hello, image
 
 app = FastAPI(title="Hello World API")
 
@@ -46,3 +46,4 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(hello.router)
+app.include_router(image.router)
