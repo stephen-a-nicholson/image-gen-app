@@ -17,7 +17,7 @@ const ImageGenerator: React.FC = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch('http://localhost:8000/image/generate', {
+      const response = await fetch('http://0.0.0.0:8000/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
